@@ -41,24 +41,44 @@ class _AdditionalInfoState extends State<AdditionalInfo> {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      height: 240,
-      padding: const EdgeInsets.all(8.0),
+      height: 245,
+      padding: const EdgeInsets.all(10.0),
       width: 220,
       decoration: BoxDecoration(
+        boxShadow: [
+          //dark shadow at bottom right
+          BoxShadow(
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Color.fromARGB(255, 151, 150, 150)
+                : Color.fromARGB(255, 103, 102, 102),
+            blurRadius: 10,
+            offset: const Offset(4, 4),
+          ),
+          // white shadow at left
+          BoxShadow(
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Color.fromARGB(255, 35, 35, 35)
+                : Color.fromARGB(255, 231, 229, 229),
+            blurRadius: 10,
+            offset: const Offset(-4, -4),
+          ),
+        ],
         color: selectedColor[widget.index],
-        shape: BoxShape.rectangle,
+        // shape: BoxShape.rectangle,
         border: Border.all(
-          color: Colors.white,
+          color: Theme.of(context).brightness == Brightness.dark
+              ? Color.fromARGB(31, 19, 18, 18)
+              : const Color.fromARGB(255, 230, 228, 228),
           width: 2,
         ),
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            height: 60,
+            height: 75,
             width: 80,
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
