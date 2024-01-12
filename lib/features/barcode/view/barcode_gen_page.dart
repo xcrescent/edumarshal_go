@@ -62,6 +62,9 @@ class BarGen extends ConsumerWidget {
               ),
               child: Column(
                 children: [
+
+
+                  
                   SizedBox(
                       width: 250,
                       height: 50,

@@ -151,7 +151,7 @@ class DashboardPage extends ConsumerWidget {
                                                   .textTheme
                                                   .bodyText1!
                                                   .color,
-                                                  fontWeight: FontWeight.bold,
+                                              fontWeight: FontWeight.bold,
                                             ),
                                         children: <TextSpan>[
                                           TextSpan(
@@ -164,7 +164,7 @@ class DashboardPage extends ConsumerWidget {
                                                       .textTheme
                                                       .bodyText1!
                                                       .color,
-                                                      fontWeight: FontWeight.bold,
+                                                  fontWeight: FontWeight.bold,
                                                 ),
                                           ),
                                         ],
@@ -172,11 +172,11 @@ class DashboardPage extends ConsumerWidget {
                                     ),
                                     Text(
                                       email,
-                                      style:
-                                          Theme.of(context).textTheme.bodyText2!.copyWith(
-                                            fontWeight: FontWeight.bold
-                                          ),
-                                          
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2!
+                                          .copyWith(
+                                              fontWeight: FontWeight.bold),
                                     ),
 
                                     // Text(
@@ -471,7 +471,7 @@ class DashboardPage extends ConsumerWidget {
   }
 }
 
-class SubjectCard extends StatelessWidget {
+class SubjectCard extends StatefulWidget {
   final String subject;
   final double attendance;
   final int? totalPresent;
@@ -484,6 +484,11 @@ class SubjectCard extends StatelessWidget {
       required this.totalPresent,
       required this.totalClasses});
 
+  @override
+  State<SubjectCard> createState() => _SubjectCardState();
+}
+
+class _SubjectCardState extends State<SubjectCard> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -500,7 +505,7 @@ class SubjectCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                subject,
+                widget.subject,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -512,7 +517,7 @@ class SubjectCard extends StatelessWidget {
                 height: 6.0,
               ),
               Text(
-                'Attendance: $totalPresent / $totalClasses ($attendance%)',
+                'Attendance: ${widget.totalPresent} / ${widget.totalClasses} (${widget.attendance}%)',
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -526,15 +531,22 @@ class SubjectCard extends StatelessWidget {
         Container(
           alignment: Alignment.center,
           width: 50,
-          child: CircularProgressIndicator(
-            value: attendance / 100,
-            backgroundColor: Colors.white60,
-            color: attendance >= 75
-                ? Colors.green
-                : attendance >= 50
-                    ? Colors.orange
-                    : Colors.red,
-          ),
+          child: TweenAnimationBuilder(
+              tween: Tween<double>(begin: 0, end: widget.attendance / 100),
+              duration: Duration(seconds: 3),
+              builder: (BuildContext context, double value, Widget? child) =>
+                  
+                  
+                    CircularProgressIndicator(
+                      value: value,
+                      backgroundColor: Colors.white60,
+                      color: widget.attendance >= 75
+                          ? Colors.green
+                          : widget.attendance >= 50
+                              ? Colors.orange
+                              : Colors.red,
+                    ),
+                  ),
         )
       ],
     );
